@@ -187,11 +187,14 @@ code-vault-template/
 │           ├── graphify_adapter.py      ← lee graphify-out/graph.json
 │           └── generic.py               ← inspector + scaffolder acumulativo
 │
-├── .claude/commands/                    ← skills
+├── .claude/commands/                    ← skills (Claude Code: slash commands)
 │   ├── snapshot.md
 │   ├── sync.md
 │   ├── ingest.md
 │   └── check.md
+│
+├── prompts/
+│   └── SKILLS.md                        ← skills agnósticas (Codex / Cursor / Cline / Continue)
 │
 ├── hooks/
 │   └── post-commit                      ← non-blocking, cross-platform (python/python3/py)

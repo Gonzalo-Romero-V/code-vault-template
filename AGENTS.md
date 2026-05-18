@@ -120,6 +120,13 @@ proponer 0 cambios — eso es correcto.
 | `/ingest <ruta>` | Después de dropear un PDF / .txt / imagen en `vault/raw/`. |
 | `/check` | Cuando dudes de la coherencia entre código y vault. Solo reporta, no resuelve. |
 
+> **Si tu CLI no soporta slash commands** (Codex CLI, Cursor, Cline, Continue,
+> etc.), las mismas 4 operaciones están documentadas de forma agnóstica en
+> [`prompts/SKILLS.md`](prompts/SKILLS.md). Cuando el usuario te pida
+> "sincronizar", "auditar", "ingerir" o "tomar snapshot", leé ese archivo
+> antes de operar. El engine determinista (`scripts/vault_sync.py`) es el
+> mismo en todos los casos.
+
 Más detalle en `USAGE.md` (cara dev) y `vault/SYSTEM.md` (cara agente).
 
 ---
