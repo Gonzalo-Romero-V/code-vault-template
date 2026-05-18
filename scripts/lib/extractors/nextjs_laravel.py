@@ -341,10 +341,12 @@ class NextjsLaravelExtractor(ExtractorBase):
                     str(p.relative_to(fe.parent).as_posix())
                     for p in app.rglob("layout.tsx") if p.is_file()
                 )
-                h4.extend(
-                    str(p.relative_to(fe.parent).as_posix())
-                    for p in (app / "api").rglob("*.ts") if (app / "api").exists()
-                )
+                api_dir = app / "api"
+                if api_dir.exists():
+                    h4.extend(
+                        str(p.relative_to(fe.parent).as_posix())
+                        for p in api_dir.rglob("*.ts") if p.is_file()
+                    )
 
         if be.exists():
             for sub in ("Models",):

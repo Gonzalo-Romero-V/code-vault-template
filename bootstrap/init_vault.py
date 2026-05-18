@@ -97,6 +97,23 @@ def validate(args: argparse.Namespace) -> tuple[Path, Path]:
     if not AGENTS_TEMPLATE.exists():
         errors.append(f"Template inválido: no existe {AGENTS_TEMPLATE}")
 
+    # Bootstrap doble: si AGENTS.md ya no contiene __PROJECT_NAME__, el repo
+    # ya fue bootstrappeado. Sustituir un placeholder inexistente es no-op
+    # silencioso y dejaría el repo en estado inconsistente.
+    if AGENTS_TEMPLATE.exists():
+        try:
+            agents_text = AGENTS_TEMPLATE.read_text(encoding="utf-8")
+            if "__PROJECT_NAME__" not in agents_text:
+                errors.append(
+                    "AGENTS.md ya no tiene placeholders — este repo parece haber sido\n"
+                    "    bootstrappeado antes. Re-bootstrappear in-place no es soportado.\n"
+                    "    Opciones:\n"
+                    "      a) git restore AGENTS.md vault_sync.config.json  (descarta el bootstrap previo)\n"
+                    "      b) Clonar el template a una carpeta nueva."
+                )
+        except OSError:
+            pass
+
     # Stack debe existir
     stack_file = STACKS_DIR / f"{args.stack}.json"
     if STACKS_DIR.exists() and not stack_file.exists():

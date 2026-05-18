@@ -16,7 +16,7 @@ El código (H4–H5) refleja al vault (H1–H3), nunca al revés.
 Toda sesión nueva, antes de la primera respuesta no-trivial, debe:
 
 1. **Leer este archivo completo** — ya estás acá, sigamos.
-2. **Leer `vault/INDEX.md`** (`__VAULT_ABSOLUTE_PATH__/INDEX.md`).
+2. **Leer el `INDEX.md` del vault** (`__VAULT_ABSOLUTE_PATH__/INDEX.md`). Nota: el vault NO está dentro del repo; vive en una carpeta separada (path absoluto, no relativo).
 3. **Identificar la tarea** y consultar la tabla de abajo para saber qué notas leer.
 4. **Leer SOLO esas notas** — no leer el vault completo, no inventar.
 5. **Recién entonces** explorar código del repo.

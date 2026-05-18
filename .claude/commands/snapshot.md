@@ -9,9 +9,11 @@ vault para que el grafo refleje fielmente la realidad del repo.
 ## Antes de leer cualquier archivo de código
 
 1. **Verificá si `graphify-out/graph.json` existe.**
-   - Si existe: usalo como mapa estructural. Leelo con `cat graphify-out/graph.json | head -200`
-     o consultalo vía MCP si Graphify está expuesto como server. Empezar por
-     el grafo evita re-leer archivos raw que Graphify ya parseó deterministicamente.
+   - Si existe: usalo como mapa estructural. Leé sus primeras ~200 líneas con
+     tu herramienta nativa de lectura (no asumas `cat`/`head` — el repo puede
+     estar en Windows sin Git Bash). Si Graphify está expuesto como MCP server,
+     usalo. Empezar por el grafo evita re-leer archivos raw que Graphify ya
+     parseó deterministicamente.
    - Si no existe: proceder con lectura directa (comportamiento por defecto).
 
 ## Pasos

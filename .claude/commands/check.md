@@ -27,11 +27,10 @@ repo. Combina chequeos deterministas (script) con interpretación semántica
 
 4. **Si el extractor activo es `graphify`** (revisar `facts.json::extractor`),
    chequeá además:
-   - **Frescura**: ¿`graphify-out/graph.json` es más antiguo que el último
-     commit (`git log -1 --format=%cI`)?
-     ```
-     stat -c %Y graphify-out/graph.json  # Unix
-     ```
+   - **Frescura**: comparar el mtime de `graphify-out/graph.json` con el
+     timestamp del último commit (`git log -1 --format=%cI`). Usá tu
+     herramienta nativa (no asumas `stat -c` — eso solo funciona en Unix;
+     en Windows + PowerShell sería `(Get-Item file).LastWriteTime`).
      Si está desactualizado, advertí al usuario:
      > graph.json desactualizado — ejecutar `graphify extract . --no-cluster`
        para refrescarlo antes del próximo /sync.

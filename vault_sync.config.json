@@ -43,9 +43,16 @@
     "**/graphify-out/**",
     "**/*.lock",
     "**/*-lock.json",
-    "**/*.log"
+    "**/*.log",
+    "bootstrap/init_vault.py",
+    "bootstrap/stacks/**",
+    "bootstrap/vault-skeleton/**",
+    "scripts/vault_sync.py",
+    "scripts/lib/**",
+    "hooks/post-commit",
+    "CHANGELOG.md"
   ],
-  "_doc_exclude_patterns": "Globs que el report descarta ANTES de clasificar por capa. Crítico para evitar reportes gigantes — sin esto, un commit que regenera package-lock.json mete 5k archivos al report. graphify-out/** se excluye siempre porque su contenido es derivado, no fuente.",
+  "_doc_exclude_patterns": "Globs que el report descarta ANTES de clasificar por capa. Crítico para evitar reportes gigantes — sin esto, un commit que regenera package-lock.json mete 5k archivos al report. Los últimos 7 patterns excluyen la infraestructura propia del template (bootstrap, engine, hook) para que no contamine los reports del proyecto instanciado. Si tu proyecto sobreescribe o personaliza esos paths y querés verlos en el report, removelos.",
 
   "env_scan_scope": ["app/**", "src/**", "lib/**"],
   "_doc_env_scan_scope": "Dónde escanear el uso de variables de entorno (process.env.X, os.getenv('X'), env('X')) para contrastarlas contra .env.example. Acepta dos formas: lista plana (escaneo global con esos patterns) o dict {scope_name: [patterns]} para monorepos (el scope_name debe coincidir con el nombre de la carpeta que contiene .env.example).",

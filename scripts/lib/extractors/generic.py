@@ -54,11 +54,14 @@ _STACK_SIGNALS: list[tuple[str, str, str | None]] = [
 
 # Stacks ya cubiertos por archetypes en bootstrap/stacks/ o por extractores
 # en el REGISTRY. Si la detección cae en uno de estos, NO se genera scaffold.
+# NOTE: `python-django` no tiene archetype propio pero el extractor
+# `python-generic` ya cubre Django (ver _detect_django en python_generic.py).
+# Por eso entra a _KNOWN_STACKS aunque no haya bootstrap/stacks/python-django.json.
 _KNOWN_STACKS: frozenset[str] = frozenset({
     "nextjs-laravel",
     "nextjs-only",
     "python-fastapi",
-    "python-django",   # mismo extractor python-generic
+    "python-django",
     "generic",
 })
 

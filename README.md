@@ -46,11 +46,12 @@ del dominio farmacéutico, lista para instanciar en cualquier proyecto nuevo.
 
 ---
 
-## Inicio rápido (3 comandos)
+## Inicio rápido
 
 ```bash
 git clone https://github.com/Gonzalo-Romero-V/code-vault-template.git mi-proyecto
 cd mi-proyecto
+rm -rf .git && git init   # opcional pero recomendado — empezás desde un repo limpio
 python bootstrap/init_vault.py \
   --stack nextjs-laravel \
   --project-name "MiProyecto" \
@@ -62,6 +63,12 @@ activo, `AGENTS.md` generado, `vault_sync.config.json` con paths reales.
 
 Después: `git add . && git commit -m "chore: init code-vault"` y el hook
 genera el primer reporte automáticamente.
+
+> **Sobre el `rm -rf .git && git init`**: el clone trae los commits del
+> template. Sin reiniciar la historia, el primer commit de tu proyecto solo
+> reportará los archivos que el bootstrap *modificó* (típicamente 2: `AGENTS.md`
+> y `vault_sync.config.json`), porque el resto ya existía en commits del
+> template. Reiniciar la historia produce un primer reporte completo y honesto.
 
 ---
 
@@ -145,7 +152,7 @@ code-vault-template/
 ├── CHANGELOG.md                         ← v1.0.0
 │
 ├── bootstrap/
-│   ├── init_vault.py                    ← bootstrapper Python stdlib (354 líneas)
+│   ├── init_vault.py                    ← bootstrapper Python stdlib
 │   ├── stacks/
 │   │   ├── nextjs-laravel.json          ← archetype probado (FarMedic)
 │   │   ├── nextjs-only.json             ← variante Next.js standalone

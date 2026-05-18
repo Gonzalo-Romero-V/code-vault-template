@@ -66,7 +66,14 @@
     "**/*.lock",
     "**/*-lock.json",
     "**/*.log",
-    "**/graphify-out/**"
+    "**/graphify-out/**",
+    "bootstrap/init_vault.py",
+    "bootstrap/stacks/**",
+    "bootstrap/vault-skeleton/**",
+    "scripts/vault_sync.py",
+    "scripts/lib/**",
+    "hooks/post-commit",
+    "CHANGELOG.md"
   ],
 
   "env_scan_scope": ["src/**", "app/**", "internal/**", "cmd/**", "lib/**", "pkg/**"],

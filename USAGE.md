@@ -104,6 +104,22 @@ tokens** — usar con criterio.
 
 ---
 
+## Windows: el hook necesita Git Bash
+
+El `post-commit` hook tiene shebang `#!/usr/bin/env bash`. En **Git for Windows**
+(default cuando instalás Git desde el sitio oficial), msys2 lo interpreta sin
+problemas. Si usás Git via Scoop sin msys, Cygwin u otra instalación sin un
+intérprete bash en el PATH del hook, el hook no se ejecuta y `.vault-sync/` no
+se regenera tras el commit. En ese caso, correr manualmente:
+
+```
+python scripts/vault_sync.py report
+```
+
+Y / o configurar tu Git para que use el bash de Git for Windows.
+
+---
+
 ## Comandos manuales (sin Claude)
 
 ```bash

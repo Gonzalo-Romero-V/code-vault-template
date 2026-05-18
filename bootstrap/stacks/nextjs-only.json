@@ -1,6 +1,6 @@
 {
   "_doc": "Stack archetype: Frontend Next.js standalone (sin backend en el monorepo).",
-  "_doc_extractor": "Usa el extractor 'nextjs-laravel' reusándolo solo para la parte Frontend; el resto queda ignorado por exclude_patterns.",
+  "_doc_extractor": "Reusa intencionalmente el extractor 'nextjs-laravel' (no hay un 'nextjs' aparte). El extractor mira `Frontend/` y `Backend/`; como `Backend/` no existe en este archetype, esa rama queda vacía en facts.json y se ignora. Si te confunde el nombre en `vault_sync.config.json`, es esperado — está documentado acá.",
   "schema_version": "1.0",
   "project_name": "__PROJECT_NAME__",
   "vault_path": "__VAULT_ABSOLUTE_PATH__",
@@ -46,7 +46,14 @@
     "**/*.lock",
     "**/*-lock.json",
     "**/*.log",
-    "**/graphify-out/**"
+    "**/graphify-out/**",
+    "bootstrap/init_vault.py",
+    "bootstrap/stacks/**",
+    "bootstrap/vault-skeleton/**",
+    "scripts/vault_sync.py",
+    "scripts/lib/**",
+    "hooks/post-commit",
+    "CHANGELOG.md"
   ],
 
   "env_scan_scope": ["app/**", "components/**", "lib/**", "src/**", "hooks/**"],

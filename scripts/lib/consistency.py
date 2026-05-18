@@ -45,6 +45,15 @@ def check_env_references(project_root: Path, scope_map: dict | None = None) -> d
                 if target.exists():
                     used.update(_scan_env_uses(target))
         else:
+            # Si el config trae un scope_map dict pero el .env.example no está
+            # en una carpeta cuyo nombre matchee una key, escaneamos el dir
+            # entero. Avisamos para que el dev no se sorprenda si aparece ruido.
+            if isinstance(scope_map, dict) and scope_map:
+                warnings.append(
+                    f"env_references: .env.example está en '{scope_name}/' pero no hay "
+                    f"key '{scope_name}' en env_scan_scope ({sorted(scope_map.keys())}); "
+                    f"fallback a escaneo global desde {scope_root}."
+                )
             used = _scan_env_uses(scope_root)
 
         missing = used - keys
