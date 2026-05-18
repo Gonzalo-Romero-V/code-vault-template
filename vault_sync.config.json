@@ -1,0 +1,66 @@
+{
+  "_doc": "Template del config del engine vault-sync. Las claves '_doc*' son comentarios paralelos: tanto el loader (scripts/lib/config.py) como el bootstrapper las ignoran al generar el config final del proyecto.",
+  "_doc_workflow": "El bootstrapper sobreescribe este archivo con la versión derivada del stack archetype elegido (ver bootstrap/stacks/*.json). Si NO corrés el bootstrapper y preferís editar a mano, este template ya es válido — completá los placeholders __PROJECT_NAME__ y __VAULT_ABSOLUTE_PATH__ y ajustá hierarchy_mapping al stack real.",
+
+  "schema_version": "1.0",
+  "_doc_schema_version": "Versión del contrato. Si scripts/lib/schema.py::SCHEMA_VERSION cambia, el engine rechaza configs con versión vieja. Solo subir cuando el shape del change_report.json cambie de manera incompatible.",
+
+  "project_name": "__PROJECT_NAME__",
+  "_doc_project_name": "Nombre humano del proyecto. El bootstrapper sustituye __PROJECT_NAME__ por el argumento --project-name. Aparece en change_report.json, en INDEX.md del vault y en el mensaje de status.",
+
+  "vault_path": "__VAULT_ABSOLUTE_PATH__",
+  "_doc_vault_path": "Ruta ABSOLUTA al vault Obsidian. El bootstrapper la sustituye con --vault-path. config.py valida que el path exista — si lo movés a otra carpeta, actualizá este campo. Forward slashes funcionan en Windows.",
+
+  "extractor": "nextjs-laravel",
+  "_doc_extractor": "Plugin de extractor activo. Genera facts.json en cada `report`. Opciones registradas en scripts/lib/extractors/__init__.py::REGISTRY.",
+  "_doc_extractor_options": [
+    "nextjs-laravel  — Next.js + Laravel (referencia, probado en FarMedic)",
+    "nextjs-only     — Frontend Next.js sin backend (reusa el mismo extractor)",
+    "python-generic  — Python (FastAPI / Django / Flask / SQLAlchemy / Pydantic)",
+    "graphify        — Adapter que lee graphify-out/graph.json (requiere graphifyy instalado)",
+    "generic         — Fallback inspector + scaffolder (auto-detecta stack, genera _proposed_*)"
+  ],
+
+  "hierarchy_mapping": {
+    "_doc": "Glob patterns por capa H1..H5. Cada glob es relativo al repo root. Las keys son contractuales (validadas por el schema); los patterns adentro son libres y dependen del stack. Si no corrés el bootstrapper, copiá los patterns del archetype más cercano en bootstrap/stacks/<stack>.json.",
+    "H1_intent": ["vault/intent/**"],
+    "H2_requirements": ["vault/domain/**", "vault/raw/**"],
+    "H3_architecture": ["vault/decisions/**"],
+    "H4_contracts": [],
+    "H5_implementation": [],
+    "ENV_references": ["**/.env", "**/.env.example", "**/.env.local"]
+  },
+
+  "exclude_patterns": [
+    "**/node_modules/**",
+    "**/vendor/**",
+    "**/__pycache__/**",
+    "**/.venv/**",
+    "**/.git/**",
+    "**/.next/**",
+    "**/build/**",
+    "**/dist/**",
+    "**/graphify-out/**",
+    "**/*.lock",
+    "**/*-lock.json",
+    "**/*.log"
+  ],
+  "_doc_exclude_patterns": "Globs que el report descarta ANTES de clasificar por capa. Crítico para evitar reportes gigantes — sin esto, un commit que regenera package-lock.json mete 5k archivos al report. graphify-out/** se excluye siempre porque su contenido es derivado, no fuente.",
+
+  "env_scan_scope": ["app/**", "src/**", "lib/**"],
+  "_doc_env_scan_scope": "Dónde escanear el uso de variables de entorno (process.env.X, os.getenv('X'), env('X')) para contrastarlas contra .env.example. Acepta dos formas: lista plana (escaneo global con esos patterns) o dict {scope_name: [patterns]} para monorepos (el scope_name debe coincidir con el nombre de la carpeta que contiene .env.example).",
+  "_doc_env_scan_scope_example_monorepo": {
+    "Backend": ["app/**", "routes/**", "database/**"],
+    "Frontend": ["app/**", "components/**", "lib/**"]
+  },
+
+  "vault_protected_status": ["locked"],
+  "_doc_vault_protected_status": "Lista de status de notas que el engine NUNCA modifica (apply las skipea con BLOCKED). Típicamente solo 'locked'; podés sumar 'deprecated' si querés que el histórico también sea intocable. NOTA: el contrato del sistema asume que 'locked' siempre está acá — quitarlo es un foot-gun.",
+
+  "report_size_limits": {
+    "max_files": 100,
+    "max_diff_chars_per_file": 500,
+    "split_threshold_files": 30
+  },
+  "_doc_report_size_limits": "Token-aware. max_files es el hard cap: si un commit supera esto, vault_sync abortá con exit 2 y mensaje 'Split your commit'. max_diff_chars_per_file trunca diff_excerpts largos. split_threshold_files es advisory (no se enforza hoy; reservado para futuras versiones del skill /sync que dividan procesamiento por capa)."
+}

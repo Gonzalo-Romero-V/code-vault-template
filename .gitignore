@@ -1,0 +1,23 @@
+# Artefactos del engine vault-sync (no se commitean en proyectos instanciados,
+# pero como template también los excluimos por convención)
+.vault-sync/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+.pytest_cache/
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Graphify (cuando se usa con --with-graphify, su salida queda fuera de git)
+graphify-out/
