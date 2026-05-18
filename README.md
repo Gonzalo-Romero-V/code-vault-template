@@ -249,11 +249,3 @@ Cualquier mejora al extractor `python-generic` debería:
 
 Si el cambio rompe compat hacia atrás, hay que bumpar `schema_version` en
 `schema.py` y documentar en `CHANGELOG.md`.
-
----
-
-## Licencia y autoría
-
-El sistema nació en [FarMedic](https://github.com/Gonzalo-Romero-V/FarMedic).
-Este template es la abstracción re-empaquetada para reuso. Issues, PRs y
-preguntas son bienvenidas.
